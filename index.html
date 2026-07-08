@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seguimiento Comercial — AutoTrato</title>
+  <meta name="description" content="Carga y seguimiento comercial administrable con Google Sheets." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./app/css/styles.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script defer src="./app/js/config.js"></script>
+  <script defer src="./app/js/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="header">
+    <div>
+      <div class="logo-txt">Auto<span>Trato</span></div>
+      <div class="header-sub">Seguimiento comercial administrable</div>
+    </div>
+    <div class="header-actions">
+      <button class="btn bs small" id="recargarCatalogos">Recargar catálogos</button>
+      <div class="header-date" id="fechaActual"></div>
+    </div>
+  </header>
+
+  <main id="contenido" class="container">
+    <section class="section">
+      <div class="sh"><span class="n">1</span> Gestión desde Google Sheets</div>
+      <div class="sb two-col">
+        <div>
+          <p class="lead">Los vendedores e indicadores se administran desde Google Sheets. Esta web solo consume esos catálogos para evitar tocar código cada vez que cambie la operación.</p>
+          <ul class="simple-list">
+            <li>Hoja <strong>Vendedores</strong>: altas, bajas lógicas y nombres visibles.</li>
+            <li>Hoja <strong>Indicadores</strong>: nombre, detalle, peso, orden y estado.</li>
+            <li>Hoja <strong>Mediciones</strong>: resumen por carga.</li>
+            <li>Hoja <strong>Detalle</strong>: detalle indicador por indicador.</li>
+          </ul>
+        </div>
+        <div class="info-box">Después de editar la planilla, usa “Recargar catálogos” para reflejar cambios en la interfaz.</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="sh"><span class="n">2</span> Nueva medición</div>
+      <div class="sb">
+        <div class="g3">
+          <div class="f">
+            <label for="fechaMedicion">Fecha de medición</label>
+            <input id="fechaMedicion" type="date" />
+          </div>
+          <div class="f">
+            <label for="vendedorSelect">Vendedor</label>
+            <select id="vendedorSelect"></select>
+          </div>
+          <div class="f">
+            <label for="observacionGeneral">Observación general</label>
+            <input id="observacionGeneral" type="text" placeholder="Opcional" />
+          </div>
+        </div>
+        <div id="indicadoresWrap"></div>
+        <div class="btn-grp left">
+          <button class="btn bp" id="guardarMedicion">Guardar medición</button>
+          <button class="btn bs" id="sincronizarDatos">Actualizar dashboard</button>
+          <button class="btn bs" id="limpiarFormulario">Limpiar</button>
+        </div>
+        <p class="status-text" id="statusText">Conecta el Web App de Apps Script y recarga catálogos.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="sh"><span class="n">3</span> Dashboard mensual</div>
+      <div class="sb">
+        <div class="g3">
+          <div class="f"><label for="filtroMes">Mes</label><select id="filtroMes"></select></div>
+          <div class="f"><label for="filtroVendedor">Vendedor</label><select id="filtroVendedor"></select></div>
+          <div class="f"><label for="filtroAnio">Año</label><select id="filtroAnio"></select></div>
+        </div>
+        <div class="cr-box">
+          <div class="cr-item hi"><div class="cl">Puntaje promedio</div><div class="cv" id="kpiPromedio">0%</div></div>
+          <div class="cr-item"><div class="cl">Mediciones</div><div class="cv" id="kpiMediciones">0</div></div>
+          <div class="cr-item"><div class="cl">Vendedores medidos</div><div class="cv" id="kpiVendedores">0</div></div>
+        </div>
+        <div class="chart-box"><canvas id="chartMensual"></canvas></div>
+        <table class="excel-table" id="tablaResumen">
+          <thead><tr><td class="lbl">Vendedor</td><td class="lbl">Mes</td><td class="lbl">Año</td><td class="lbl">Puntaje</td></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
